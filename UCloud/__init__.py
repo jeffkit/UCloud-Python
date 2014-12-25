@@ -42,7 +42,6 @@ class UCloudClient(object):
         _params = dict({'PublicKey': self.public_key, 'Action': action},
                        **params)
         _params['Signature'] = _verfy_ac(self.private_key, _params)
-        print _params
         try:
             rsp = urllib2.urlopen(self.host + '/',
                                   data=urlencode(_params)).read()
