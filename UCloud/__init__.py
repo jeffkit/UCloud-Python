@@ -1,6 +1,6 @@
 #encoding=utf-8
 
-version = '0.2'
+version = '0.3'
 
 import hashlib
 import urllib2
@@ -54,5 +54,16 @@ class UCloudClient(object):
 
     def __getattr__(self, attr):
         def wrap(**kwargs):
+            list_keys = [key for key in kwargs.keys() if
+                         isinstance(kwargs[key], list) or
+                         isinstance(kwargs[key], tuple)]
+            for key in list_keys:
+                values = kwargs[key]
+                index = 0
+                for value in values:
+                    kwargs['%s.%d' % (key, index)] = value
+                    index += 1
+                del kwargs[key]
+            print kwargs
             return self._get(attr, **kwargs)
         return wrap
