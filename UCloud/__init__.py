@@ -1,6 +1,6 @@
 #encoding=utf-8
 
-version = '0.3'
+version = '0.4'
 
 import hashlib
 import urllib2
@@ -64,6 +64,5 @@ class UCloudClient(object):
                     kwargs['%s.%d' % (key, index)] = value
                     index += 1
                 del kwargs[key]
-            print kwargs
             return self._get(attr, **kwargs)
         return wrap
